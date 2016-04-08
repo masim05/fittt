@@ -19,7 +19,7 @@ module.exports = function (_input) {
     if (!parent.children) {
       parent.children = [];
     }
-    parent.children.push(input[i]);
+    parent.children.unshift(input[i]);
     input[i] = undefined;
   }
 
