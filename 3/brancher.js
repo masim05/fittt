@@ -1,7 +1,7 @@
 module.exports = function (_input) {
   var i, l;
   var hash = {},
-  // Do not modify _input
+  // Do not modify _input, copy it in a stupid way
     input = JSON.parse(JSON.stringify(_input));
 
   for (i = 0, l = input.length; i < l; i++) {
