@@ -36,6 +36,8 @@ describe('Units', function () {
         }
 
         assert.that(new results.handler.ctor() instanceof Sorter).is.true();
+        assert.that(results.handler.options.field).is.not.falsy();
+        assert.that(results.handler.options.order).is.not.falsy();
         assert.that(new results.renderer.ctor() instanceof Sql).is.true();
 
         done();
@@ -57,6 +59,153 @@ describe('Units', function () {
         assert.that(new results.handler.ctor() instanceof Aggregator).is.true();
         assert.that(new results.renderer.ctor() instanceof Csv).is.true();
 
+        done();
+      });
+    });
+  });
+
+  describe('Sorter', function () {
+    it('should sort by score ascending', function (done) {
+      var options = {
+        field: 'data.score',
+        order: 'asc'
+      };
+      var sorter = new Sorter(options);
+
+      var input = [
+        {
+          kind: 't3',
+          data: {
+            score: 56,
+            title: 'Title for 56',
+            created_utc: 1423023706.0
+          }
+        },
+        {
+          kind: 't3',
+          data: {
+            score: 46,
+            title: 'Title for 46',
+            created_utc: 1423023707.0
+          }
+        },
+        {
+          kind: 't3',
+          data: {
+            score: 6,
+            title: 'Title for 6',
+            created_utc: 1423023708.0
+          }
+        }
+      ];
+
+      var output = [
+        {
+          kind: 't3',
+          data: {
+            score: 6,
+            title: 'Title for 6',
+            created_utc: 1423023708.0
+          }
+        },
+        {
+          kind: 't3',
+          data: {
+            score: 46,
+            title: 'Title for 46',
+            created_utc: 1423023707.0
+          }
+
+        },
+        {
+          kind: 't3',
+          data: {
+            score: 56,
+            title: 'Title for 56',
+            created_utc: 1423023706.0
+          }
+        }
+      ];
+
+      sorter.handle(input, function (error, results) {
+        if (error) {
+          throw error;
+        }
+
+        assert.that(results).is.equalTo(output);
+        done();
+      });
+    });
+
+    it('should sort by title descending', function (done) {
+      var options = {
+        field: 'data.title',
+        order: 'desc'
+      };
+      var sorter = new Sorter(options);
+
+      var input = [
+        {
+          kind: 't3',
+          data: {
+            score: 5,
+            title: 'Title for 5',
+            created_utc: 1423023706.0
+          }
+        },
+        {
+          kind: 't3',
+          data: {
+            score: 4,
+            title: 'Title for 4',
+            created_utc: 1423023707.0
+          }
+
+        },
+        {
+          kind: 't3',
+          data: {
+            score: 6,
+            title: 'Title for 6',
+            created_utc: 1423023708.0
+          }
+        }
+      ];
+
+      var output = [
+        {
+          kind: 't3',
+          data: {
+            score: 6,
+            title: 'Title for 6',
+            created_utc: 1423023708.0
+          }
+        },
+        {
+          kind: 't3',
+          data: {
+            score: 5,
+            title: 'Title for 5',
+            created_utc: 1423023706.0
+          }
+
+        },
+        {
+          kind: 't3',
+          data: {
+            score: 4,
+            title: 'Title for 4',
+            created_utc: 1423023707.0
+          }
+        }
+      ];
+
+      sorter.handle(input, function (error, results) {
+        if (error) {
+          throw error;
+        }
+
+        assert.that(results).is.equalTo(output);
         done();
       });
     });
