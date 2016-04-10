@@ -9,6 +9,7 @@
   "dependencies": {
     "express": "~4.13.1",
     "jade": "~1.11.0",
+    "lodash": "^4.9.0",
     "twostep": "^0.4.1"
   },
   "devDependencies": {
