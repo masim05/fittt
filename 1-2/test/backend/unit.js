@@ -10,6 +10,7 @@ var orchestrator = require('../../components/orchestrator');
 describe('Units', function () {
   describe('Fetcher', function () {
     it('should fetch https://www.reddit.com/r/javascript/.json', function (done) {
+      this.timeout(8000);
 
       var fetcher = new Fetcher('https://www.reddit.com/r/javascript/.json');
       fetcher.fetch(function (error, results) {
@@ -57,7 +58,7 @@ describe('Units', function () {
         }
 
         assert.that(new results.handler.ctor() instanceof Aggregator).is.true();
-        assert.that(new results.renderer.ctor() instanceof Csv).is.true();
+        assert.that(new results.renderer.ctor({}) instanceof Csv).is.true();
 
         done();
       });
@@ -270,6 +271,7 @@ describe('Units', function () {
   describe('Orchestrator', function () {
     it('should perform the work somehow', function (done) {
       this.timeout(8000);
+
       var form = {
         uri: 'https://www.reddit.com/r/javascript/.json',
         operation: 'sorting',
