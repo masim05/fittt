@@ -211,6 +211,62 @@ describe('Units', function () {
     });
   });
 
+  describe('CSV Renderer', function () {
+    it('should render csv', function (done) {
+      var options = {
+        delimiter: ';'
+      };
+      var renderer = new Csv(options);
+
+      var input = [
+        {
+          kind: 't3',
+          data: {
+            id: 'afe3ll',
+            score: 5,
+            title: 'Title for 5',
+            created_utc: 1423023706.0
+          }
+        },
+        {
+          kind: 't3',
+          data: {
+            id: 'afe3ao',
+            score: 4,
+            title: 'Title for 4',
+            created_utc: 1423023707.0
+          }
+
+        },
+        {
+          kind: 't3',
+          data: {
+            id: 'afe3lw',
+            score: 6,
+            title: 'Title for 6',
+            created_utc: 1423023708.0
+          }
+        }
+      ];
+
+      var output =
+        "data.id;data.score;data.title;data.created_utc\n" +
+        "\"afe3ll\";5;\"Title for 5\";1423023706\n" +
+        "\"afe3ao\";4;\"Title for 4\";1423023707\n" +
+        "\"afe3lw\";6;\"Title for 6\";1423023708";
+
+      renderer.render(input, function (error, results) {
+        if (error) {
+          throw error;
+        }
+
+        assert.that(results).is.equalTo(output);
+
+        done();
+      });
+    });
+  });
+
   describe('Orchestrator', function () {
     it('should perform the work somehow', function (done) {
       this.timeout(8000);
