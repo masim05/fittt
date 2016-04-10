@@ -17,4 +17,30 @@ describe('Backend', function () {
       done();
     });
   });
+
+  it('should return 200 OK on sorting request', function (done) {
+
+    request.post(
+      '/',
+      {
+        form: {
+          uri: 'https://www.reddit.com/r/javascript/.json',
+          operation: 'sorting',
+          sort_field: 'date',
+          sort_order: 'desc',
+          output_format: 'csv',
+          output_delimiter: 'comma'
+        }
+      },
+      function (error, response) {
+
+        if (error) {
+          throw error;
+        }
+
+        assert.that(response.statusCode).is.equalTo(200);
+
+        done();
+      });
+  });
 });
