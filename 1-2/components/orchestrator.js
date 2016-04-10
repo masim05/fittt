@@ -23,11 +23,11 @@ function orchestrate(form, callback) {
       // Process the data
       var h = new selected.handler.ctor(selected.handler.options);
       this.pass(selected.renderer);
-      h.handle(body, this.slot());
+      h.handle(body.data.children, this.slot());
     },
     function (error, renderer, data) {
       // Render the data
-      var r = new renderer.ctor();
+      var r = new renderer.ctor(renderer.options);
       r.render(data, this.slot());
     },
     function (error, output) {
