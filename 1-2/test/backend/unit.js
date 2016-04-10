@@ -276,8 +276,8 @@ describe('Units', function () {
         field: 'data.score',
         format: 'csv'
       };
-      orchestrator(form, function (error) {
-        //console.log(arguments);
+      orchestrator(form, function (error, results) {
+        //console.log(results);
         done(error);
       });
     });
