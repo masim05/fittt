@@ -8,24 +8,73 @@ var renderers = {
   sql: require('./renderers/sql')
 };
 
+const DEFAULTS = {
+  SORITNG: {
+    FIELD: 'data.score',
+    ORDER: 'asc'
+  },
+  SQL: {
+    TABLENAME: 'data'
+  },
+  CSV: {
+    DELIMITER: ','
+  }
+};
+
 function Selector() {
   this.select = function (form, callback) {
+    var handler, renderer;
+    switch (form.operation) {
+      case 'sorting':
+        handler = {
+          ctor: handlers.sorter,
+          options: {
+            field: (form.field || DEFAULTS.SORITNG.FIELD),
+            order: (form.order || DEFAULTS.SORITNG.ORDER)
+          }
+        };
+        break;
+
+      case 'aggregation':
+        handler = {
+          ctor: handlers.aggregator
+        };
+        break;
+
+      default:
+        return callback(new Error('Invalid operation.'));
+
+    }
+
+    switch (form.format) {
+      case 'sql':
+        renderer = {
+          ctor: renderers.sql,
+          options: {
+            tablename: (form.tablename || DEFAULTS.SQL.TABLENAME)
+          }
+        };
+        break;
+
+      case 'csv':
+        renderer = {
+          ctor: renderers.csv,
+          options: {
+            delimiter: (form.delimiter || DEFAULTS.CSV.DELIMITER)
+          }
+        };
+        break;
+
+      default:
+        return callback(new Error('Invalid format.'));
+
+    }
+
     return callback(
       undefined,
       {
-        handler: {
-          ctor: handlers.sorter,
-          options: {
-            field: 'score',
-            order: 'asc'
-          }
-        },
-        renderer: {
-          ctor: renderers.csv,
-          options: {
-            delimiter: ','
-          }
-        }
+        handler: handler,
+        renderer: renderer
       }
     );
   };
