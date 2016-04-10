@@ -8,7 +8,8 @@
   },
   "dependencies": {
     "express": "~4.13.1",
-    "jade": "~1.11.0"
+    "jade": "~1.11.0",
+    "twostep": "^0.4.1"
   },
   "devDependencies": {
     "mocha": "^2.4.5",
