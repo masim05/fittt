@@ -8,11 +8,8 @@ var renderers = {
   sql: require('./renderers/sql')
 };
 
-function Selector(_form) {
-  // Do not modify input arguments
-  var form = JSON.parse(JSON.stringify(_form));
-
-  this.select = function (callback) {
+function Selector() {
+  this.select = function (form, callback) {
     return callback(
       undefined,
       {

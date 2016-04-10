@@ -15,8 +15,8 @@ function orchestrate(form, callback) {
       // Select correct handler and renderer
       // XXX one can perform selection in parallel with
       // fetching, it should increase performance
-      var s = new Selector(form);
-      s.select(this.slot());
+      var s = new Selector();
+      s.select(form, this.slot());
       this.pass(fetched.body);
     },
     function (error, selected, body) {
