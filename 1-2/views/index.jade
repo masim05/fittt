@@ -3,14 +3,14 @@ extends layout
 block content
     div(class='container theme-showcase' role='main')
         div(class='jumbotron')
-            h1= title
+            h3= title
 
             if results
-                p= results.message
+                h4= results.message
 
                 p!= results.raw
 
-            p= message
+            h4= message
 
             form(name='data', action='/', method='post', class='form-signin')
                 label(for='inputEmail') URI
