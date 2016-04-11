@@ -216,6 +216,82 @@ describe('Units', function () {
     });
   });
 
+  describe('Aggregator', function () {
+    it('should aggregate', function (done) {
+      return done();
+
+      var options = {
+        field: 'data.score',
+        order: 'asc'
+      };
+      var sorter = new Sorter(options);
+
+      var input = [
+        {
+          kind: 't3',
+          data: {
+            score: 56,
+            title: 'Title for 56',
+            created_utc: 1423023706.0
+          }
+        },
+        {
+          kind: 't3',
+          data: {
+            score: 46,
+            title: 'Title for 46',
+            created_utc: 1423023707.0
+          }
+        },
+        {
+          kind: 't3',
+          data: {
+            score: 6,
+            title: 'Title for 6',
+            created_utc: 1423023708.0
+          }
+        }
+      ];
+
+      var output = [
+        {
+          kind: 't3',
+          data: {
+            score: 6,
+            title: 'Title for 6',
+            created_utc: 1423023708.0
+          }
+        },
+        {
+          kind: 't3',
+          data: {
+            score: 46,
+            title: 'Title for 46',
+            created_utc: 1423023707.0
+          }
+
+        },
+        {
+          kind: 't3',
+          data: {
+            score: 56,
+            title: 'Title for 56',
+            created_utc: 1423023706.0
+          }
+        }
+      ];
+
+      sorter.handle(input, function (error, results) {
+        if (error) {
+          throw error;
+        }
+
+        assert.that(results).is.equalTo(output);
+        done();
+      });
+    });
+  });
+
   describe('CSV Renderer', function () {
     it('should render csv', function (done) {
       var options = {
