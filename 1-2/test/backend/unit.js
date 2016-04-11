@@ -352,7 +352,13 @@ describe('Units', function () {
   describe('SQL Renderer', function () {
     it('should render sql', function (done) {
       var options = {
-        tablename: 'fancy_table_123'
+        tablename: 'fancy_table_123',
+        mapping: {
+          'data.id': 'id',
+          'data.score': 'score',
+          'data.title': 'title',
+          'data.created_utc': 'created_utc'
+        }
       };
       var renderer = new Sql(options);
 
