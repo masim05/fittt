@@ -333,7 +333,7 @@ describe('Units', function () {
   });
 
   describe('Orchestrator', function () {
-    it('should perform the work somehow', function (done) {
+    it('should sort to csv', function (done) {
       this.timeout(8000);
 
       var form = {
@@ -341,6 +341,21 @@ describe('Units', function () {
         operation: 'sorting',
         field: 'data.score',
         format: 'csv'
+      };
+      orchestrator(form, function (error, results) {
+        //console.log(results);
+        done(error);
+      });
+    });
+
+    it('should sort to sql', function (done) {
+      this.timeout(8000);
+
+      var form = {
+        uri: 'https://www.reddit.com/r/javascript/.json',
+        operation: 'sorting',
+        field: 'data.score',
+        format: 'sql'
       };
       orchestrator(form, function (error, results) {
         //console.log(results);
