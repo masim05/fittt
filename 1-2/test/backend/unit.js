@@ -290,7 +290,13 @@ describe('Units', function () {
   describe('CSV Renderer', function () {
     it('should render csv', function (done) {
       var options = {
-        delimiter: ';'
+        delimiter: ';',
+        properties: [
+          'data.id',
+          'data.score',
+          'data.title',
+          'data.created_utc'
+        ]
       };
       var renderer = new Csv(options);
 
