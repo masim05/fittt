@@ -10,6 +10,7 @@
     "express": "~4.13.1",
     "jade": "~1.11.0",
     "lodash": "^4.9.0",
+    "squel": "^5.0.2",
     "twostep": "^0.4.1"
   },
   "devDependencies": {
