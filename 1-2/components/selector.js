@@ -48,7 +48,7 @@ function Selector() {
           options: {
             groupBy: (form.groupBy || DEFAULTS.AGGREGATION.GROUPBY),
             add: (form.add || DEFAULTS.AGGREGATION.ADD),
-            order: (form.order || DEFAULTS.AGGREGATION.ORDER)
+            order: (form.aggrOrder || DEFAULTS.AGGREGATION.ORDER)
           }
         };
         break;

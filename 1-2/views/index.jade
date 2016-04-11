@@ -48,6 +48,12 @@ block content
                     option(value='data.score') Score
                 br
 
+                label(for='inputAggrOrder') Sort order (only for aggregation)
+                select(id='inputAggrOrder', name='aggrOrder', class='form-control')
+                    option(value='asc') Ascending
+                    option(value='desc') Descending
+                br
+
                 label(for='inputFormat') Output format
                 select(id='inputFormat', name='format', class='form-control')
                     option(value='csv') CSV
