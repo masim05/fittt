@@ -29,6 +29,7 @@ const DEFAULTS = {
 function Selector() {
   this.select = function (form, callback) {
     var handler, renderer;
+    var aggregationInProgress;
     switch (form.operation) {
       case 'sorting':
         handler = {
@@ -41,10 +42,11 @@ function Selector() {
         break;
 
       case 'aggregation':
+        aggregationInProgress = true;
         handler = {
           ctor: handlers.aggregator,
           options: {
-            field: (form.groupBy || DEFAULTS.AGGREGATION.GROUPBY),
+            groupBy: (form.groupBy || DEFAULTS.AGGREGATION.GROUPBY),
             add: (form.add || DEFAULTS.AGGREGATION.ADD),
             order: (form.order || DEFAULTS.AGGREGATION.ORDER)
           }
@@ -67,10 +69,21 @@ function Selector() {
         break;
 
       case 'csv':
+
         renderer = {
           ctor: renderers.csv,
           options: {
-            delimiter: (form.delimiter || DEFAULTS.CSV.DELIMITER)
+            delimiter: (form.delimiter || DEFAULTS.CSV.DELIMITER),
+            properties: aggregationInProgress ? [
+              'domain',
+              'articles',
+              'scores'
+            ] : [
+              'data.id',
+              'data.score',
+              'data.title',
+              'data.created_utc'
+            ]
           }
         };
         break;
