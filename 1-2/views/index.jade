@@ -1,7 +1,67 @@
 extends layout
 
 block content
-    h1= message
+    div(class='container theme-showcase' role='main')
+        div(class='jumbotron')
+            h1= title
+            p= message
+
+            form(name='data', action='/', method='post', class='form-signin')
+                label(for='inputEmail') URI
+                input(id='inputEmail', type='text', name='uri',
+                class='form-control')
+                br
+
+                label(for='inputOperation') Operation
+                select(id='inputOperation', name='operation',
+                class='form-control')
+                    option(value='sorting') Sorting
+                    option(value='aggregation') Aggregation
+                br
+
+                label(for='inputField') Field to sort by (only for sorting)
+                select(id='inputField', name='field', class='form-control')
+                    option(value='data.score') Score
+                    option(value='data.title') Title
+                    option(value='data.created_utc') Creation time
+                br
+
+                label(for='inputOrder') Sort order (only for sorting)
+                select(id='inputOrder', name='order', class='form-control')
+                    option(value='asc') Ascending
+                    option(value='desc') Descending
+                br
+
+                label(for='inputGroupBy') Field to group by (only for aggregation)
+                select(id='inputGroupBy', name='groupBy', class='form-control')
+                    option(value='data.domain') Domain
+                br
+
+                label(for='inputAdd') Field to summ (only for aggregation)
+                select(id='inputAdd', name='add', class='form-control')
+                    option(value='data.score') Score
+                br
+
+                label(for='inputFormat') Output format
+                select(id='inputFormat', name='format', class='form-control')
+                    option(value='csv') CSV
+                    option(value='sql') SQL
+                br
+
+                label(for='inputDelimiter') Delimiter (only for CSV)
+                select(id='inputDelimiter', name='delimiter',
+                class='form-control')
+                    option(value=',') ,
+                    option(value=';') ;
+                br
+
+                label(for='inputTablename') Tablename (only for SQL)
+                input(id='inputTablename', type='text', name='tablename',
+                class='form-control')
+                br
+
+                input(class='btn btn-lg btn-primary btn-block',
+                type='submit', value='Run!')
 
     script(src='/js/jquery-2.2.3.min.js')
     script(src='/js/bootstrap.min.js')
