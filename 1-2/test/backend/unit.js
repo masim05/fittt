@@ -39,7 +39,11 @@ describe('Units', function () {
         assert.that(new results.handler.ctor() instanceof Sorter).is.true();
         assert.that(results.handler.options.field).is.not.falsy();
         assert.that(results.handler.options.order).is.not.falsy();
-        assert.that(new results.renderer.ctor() instanceof Sql).is.true();
+
+        var r = results.renderer;
+        assert
+          .that(new r.ctor(r.options) instanceof Sql)
+          .is.true();
 
         done();
       });
