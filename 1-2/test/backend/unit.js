@@ -456,7 +456,7 @@ describe('Units', function () {
       });
     });
 
-    it.only('should aggregate to sql', function (done) {
+    it('should aggregate to sql', function (done) {
       this.timeout(8000);
 
       var form = {
