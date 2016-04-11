@@ -3,8 +3,17 @@ var Sorter = require('./sorter');
 
 function Arrgegator(options) {
   var groupBy = options.groupBy;
+  if (!groupBy) {
+    throw new Error('groupBy not found.');
+  }
   var add = options.add;
+  if (!add) {
+    throw new Error('add not found.');
+  }
   var order = options.order;
+  if (!order) {
+    throw new Error('order not found.');
+  }
 
   this.handle = function (data, callback) {
     // Prepare aggregated data
