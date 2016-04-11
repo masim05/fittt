@@ -13,6 +13,11 @@ const DEFAULTS = {
     FIELD: 'data.score',
     ORDER: 'asc'
   },
+  AGGREGATION: {
+    GROUPBY: 'data.domain',
+    ORDER: 'desc',
+    ADD: 'data.score'
+  },
   SQL: {
     TABLENAME: 'data'
   },
@@ -37,7 +42,12 @@ function Selector() {
 
       case 'aggregation':
         handler = {
-          ctor: handlers.aggregator
+          ctor: handlers.aggregator,
+          options: {
+            field: (form.groupBy || DEFAULTS.AGGREGATION.GROUPBY),
+            add: (form.add || DEFAULTS.AGGREGATION.ADD),
+            order: (form.order || DEFAULTS.AGGREGATION.ORDER)
+          }
         };
         break;
 
