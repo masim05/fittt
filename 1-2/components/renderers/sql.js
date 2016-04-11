@@ -1,14 +1,9 @@
 var squel = require('squel');
 var _ = require('lodash');
-var mapping = {
-  'data.id': 'id',
-  'data.score': 'score',
-  'data.title': 'title',
-  'data.created_utc': 'created_utc'
-};
 
 function Sql(options) {
   var tablename = options.tablename;
+  var mapping = options.mapping;
 
   this.render = function (data, callback) {
     var output = [];

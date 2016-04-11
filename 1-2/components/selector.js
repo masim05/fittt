@@ -63,13 +63,22 @@ function Selector() {
         renderer = {
           ctor: renderers.sql,
           options: {
-            tablename: (form.tablename || DEFAULTS.SQL.TABLENAME)
+            tablename: (form.tablename || DEFAULTS.SQL.TABLENAME),
+            mapping: aggregationInProgress ? {
+              domain: 'domain',
+              articles: 'articles',
+              scores: 'scores'
+            } : {
+              'data.id': 'id',
+              'data.score': 'score',
+              'data.title': 'title',
+              'data.created_utc': 'created_utc'
+            }
           }
         };
         break;
 
       case 'csv':
-
         renderer = {
           ctor: renderers.csv,
           options: {
