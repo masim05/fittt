@@ -4,6 +4,12 @@ block content
     div(class='container theme-showcase' role='main')
         div(class='jumbotron')
             h1= title
+
+            if results
+                p= results.message
+
+                p= results.raw
+
             p= message
 
             form(name='data', action='/', method='post', class='form-signin')
