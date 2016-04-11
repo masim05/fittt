@@ -268,6 +268,66 @@ describe('Units', function () {
     });
   });
 
+  describe('SQL Renderer', function () {
+    it('should render sql', function (done) {
+      var options = {
+        tablename: 'fancy_table_123'
+      };
+      var renderer = new Sql(options);
+
+      var input = [
+        {
+          kind: 't3',
+          data: {
+            id: 'afe3ll',
+            score: 5,
+            title: 'Title for 5',
+            created_utc: 1423023706.0
+          }
+        },
+        {
+          kind: 't3',
+          data: {
+            id: 'afe3ad',
+            score: 4,
+            title: 'Title for 4',
+            created_utc: 1423023707.0
+          }
+
+        },
+        {
+          kind: 't3',
+          data: {
+            id: 'afe3et',
+            score: 6,
+            title: 'Title for 6',
+            created_utc: 1423023708.0
+          }
+        }
+      ];
+
+      var output =
+        "INSERT INTO fancy_table_123 (id, score, title, created_utc) " +
+        "VALUES ('afe3ll', 5, 'Title for 5', 1423023706);\n" +
+        "INSERT INTO fancy_table_123 (id, score, title, created_utc) " +
+        "VALUES ('afe3ad', 4, 'Title for 4', 1423023707);\n" +
+        "INSERT INTO fancy_table_123 (id, score, title, created_utc) " +
+        "VALUES ('afe3et', 6, 'Title for 6', 1423023708);";
+
+      renderer.render(input, function (error, results) {
+        if (error) {
+          throw error;
+        }
+
+        //console.log(results);
+
+        assert.that(results).is.equalTo(output);
+
+        done();
+      });
+    });
+  });
+
   describe('Orchestrator', function () {
     it('should perform the work somehow', function (done) {
       this.timeout(8000);
