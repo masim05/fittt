@@ -1,28 +1,12 @@
 var assert = require('assertthat');
-var Fetcher = require('../../components/fetcher');
+
 var Selector = require('../../components/selector');
 var Sorter = require('../../components/handlers/sorter');
 var Aggregator = require('../../components/handlers/aggregator');
 var Csv = require('../../components/renderers/csv');
 var Sql = require('../../components/renderers/sql');
-var orchestrator = require('../../components/orchestrator');
 
 describe('Units', function () {
-  describe('Fetcher', function () {
-    it('should fetch https://www.reddit.com/r/javascript/.json', function (done) {
-      this.timeout(8000);
-
-      var fetcher = new Fetcher('https://www.reddit.com/r/javascript/.json');
-      fetcher.fetch(function (error, results) {
-        assert.that(error).is.falsy();
-        assert.that(results.response.statusCode).is.equalTo(200);
-        assert.that(results.body).is.not.falsy();
-
-        done();
-      });
-    });
-  });
-
   describe('Selector', function () {
     it('should select sotring with sql', function (done) {
       var selector = new Selector();
@@ -411,68 +395,6 @@ describe('Units', function () {
         assert.that(results).is.equalTo(output);
 
         done();
-      });
-    });
-  });
-
-  describe('Orchestrator', function () {
-    it('should sort to csv', function (done) {
-      this.timeout(8000);
-
-      var form = {
-        uri: 'https://www.reddit.com/r/javascript/.json',
-        operation: 'sorting',
-        field: 'data.score',
-        format: 'csv'
-      };
-      orchestrator(form, function (error, results) {
-        //console.log(results);
-        done(error);
-      });
-    });
-
-    it('should sort to sql', function (done) {
-      this.timeout(8000);
-
-      var form = {
-        uri: 'https://www.reddit.com/r/javascript/.json',
-        operation: 'sorting',
-        field: 'data.score',
-        format: 'sql'
-      };
-      orchestrator(form, function (error, results) {
-        //console.log(results);
-        done(error);
-      });
-    });
-
-    it('should aggregate to csv', function (done) {
-      this.timeout(8000);
-
-      var form = {
-        uri: 'https://www.reddit.com/r/javascript/.json',
-        operation: 'aggregation',
-        groupBy: 'data.domain',
-        add: 'data.score',
-        format: 'csv'
-      };
-      orchestrator(form, function (error, results) {
-        //console.log(results);
-        done(error);
-      });
-    });
-
-    it('should aggregate to sql', function (done) {
-      this.timeout(8000);
-
-      var form = {
-        uri: 'https://www.reddit.com/r/javascript/.json',
-        operation: 'aggregation',
-        format: 'sql'
-      };
-      orchestrator(form, function (error, results) {
-        //console.log(results);
-        done(error);
       });
     });
   });
