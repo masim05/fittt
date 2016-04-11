@@ -70,9 +70,9 @@ function Selector() {
               scores: 'scores'
             } : {
               'data.id': 'id',
-              'data.score': 'score',
               'data.title': 'title',
-              'data.created_utc': 'created_utc'
+              'data.created_utc': 'created_utc',
+              'data.score': 'score'
             }
           }
         };
@@ -89,9 +89,9 @@ function Selector() {
               'scores'
             ] : [
               'data.id',
-              'data.score',
               'data.title',
-              'data.created_utc'
+              'data.created_utc',
+              'data.score'
             ]
           }
         };
