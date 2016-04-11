@@ -61,7 +61,8 @@ describe('Units', function () {
           throw error;
         }
 
-        assert.that(new results.handler.ctor() instanceof Aggregator).is.true();
+        var h = results.handler;
+        assert.that(new h.ctor(h.options) instanceof Aggregator).is.true();
         assert.that(new results.renderer.ctor({}) instanceof Csv).is.true();
 
         done();
