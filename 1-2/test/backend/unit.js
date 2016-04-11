@@ -455,5 +455,19 @@ describe('Units', function () {
         done(error);
       });
     });
+
+    it.only('should aggregate to sql', function (done) {
+      this.timeout(8000);
+
+      var form = {
+        uri: 'https://www.reddit.com/r/javascript/.json',
+        operation: 'aggregation',
+        format: 'sql'
+      };
+      orchestrator(form, function (error, results) {
+        //console.log(results);
+        done(error);
+      });
+    });
   });
 });
