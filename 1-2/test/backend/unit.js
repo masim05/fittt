@@ -218,35 +218,42 @@ describe('Units', function () {
 
   describe('Aggregator', function () {
     it('should aggregate', function (done) {
-      return done();
 
       var options = {
-        field: 'data.score',
-        order: 'asc'
+        groupBy: 'data.domain',
+        add: 'data.score',
+        order: 'desc'
       };
-      var sorter = new Sorter(options);
+
+      var aggregator = new Aggregator(options);
 
       var input = [
         {
           kind: 't3',
           data: {
-            score: 56,
-            title: 'Title for 56',
+            id: 'afe3ll',
+            score: 5,
+            domain: "lushprojects.com",
+            title: 'Title for 5',
             created_utc: 1423023706.0
           }
         },
         {
           kind: 't3',
           data: {
-            score: 46,
-            title: 'Title for 46',
+            id: 'afe3ao',
+            score: 4,
+            domain: "lushprojects.com",
+            title: 'Title for 4',
             created_utc: 1423023707.0
           }
         },
         {
           kind: 't3',
           data: {
+            id: 'afe3lw',
             score: 6,
+            domain: "nowhere.com",
             title: 'Title for 6',
             created_utc: 1423023708.0
           }
@@ -255,36 +262,23 @@ describe('Units', function () {
 
       var output = [
         {
-          kind: 't3',
-          data: {
-            score: 6,
-            title: 'Title for 6',
-            created_utc: 1423023708.0
-          }
+          domain: 'lushprojects.com',
+          articles: 2,
+          scores: 9
         },
         {
-          kind: 't3',
-          data: {
-            score: 46,
-            title: 'Title for 46',
-            created_utc: 1423023707.0
-          }
-
-        },
-        {
-          kind: 't3',
-          data: {
-            score: 56,
-            title: 'Title for 56',
-            created_utc: 1423023706.0
-          }
+          domain: 'nowhere.com',
+          articles: 1,
+          scores: 6
         }
       ];
 
-      sorter.handle(input, function (error, results) {
+      aggregator.handle(input, function (error, results) {
         if (error) {
           throw error;
         }
+
+        //console.log(results);
 
         assert.that(results).is.equalTo(output);
         done();
