@@ -9,7 +9,7 @@ var renderers = {
 };
 
 const DEFAULTS = {
-  SORITNG: {
+  SORTING: {
     FIELD: 'data.score',
     ORDER: 'asc'
   },
@@ -34,8 +34,8 @@ function Selector() {
         handler = {
           ctor: handlers.sorter,
           options: {
-            field: (form.field || DEFAULTS.SORITNG.FIELD),
-            order: (form.order || DEFAULTS.SORITNG.ORDER)
+            field: (form.field || DEFAULTS.SORTING.FIELD),
+            order: (form.order || DEFAULTS.SORTING.ORDER)
           }
         };
         break;
