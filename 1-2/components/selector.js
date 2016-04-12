@@ -76,6 +76,9 @@ function Selector() {
             }
           }
         };
+        if (!aggregationInProgress) {
+          renderer.options.dates = ['data.created_utc']
+        }
         break;
 
       case 'csv':
@@ -95,6 +98,9 @@ function Selector() {
             ]
           }
         };
+        if (!aggregationInProgress) {
+          renderer.options.dates = ['data.created_utc']
+        }
         break;
 
       default:

@@ -1,9 +1,11 @@
 var squel = require('squel');
 var _ = require('lodash');
+var moment = require('moment');
 
 function Sql(options) {
   var tablename = options.tablename;
   var mapping = options.mapping;
+  var dates = options.dates;
 
   this.render = function (data, callback) {
     var output = [];
@@ -15,6 +17,10 @@ function Sql(options) {
         var v = _.get(e, k);
         if (!v) {
           continue;
+        }
+        if ((dates.indexOf(k) >= 0)) {
+          v = moment.unix(v);
+          v = v.format('DD.MM.YYYY hh:mm:ss');
         }
 
         query.set(mapping[k], v);
