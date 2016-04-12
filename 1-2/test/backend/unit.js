@@ -275,6 +275,7 @@ describe('Units', function () {
     it('should render csv', function (done) {
       var options = {
         delimiter: ';',
+        dates: ['data.created_utc'],
         properties: [
           'data.id',
           'data.score',
@@ -317,14 +318,15 @@ describe('Units', function () {
 
       var output =
         "data.id;data.score;data.title;data.created_utc\n" +
-        "\"afe3ll\";5;\"Title for 5\";1423023706\n" +
-        "\"afe3ao\";4;\"Title for 4\";1423023707\n" +
-        "\"afe3lw\";6;\"Title for 6\";1423023708";
+        "\"afe3ll\";5;\"Title for 5\";\"04.02.2015 07:21:46\"\n" +
+        "\"afe3ao\";4;\"Title for 4\";\"04.02.2015 07:21:47\"\n" +
+        "\"afe3lw\";6;\"Title for 6\";\"04.02.2015 07:21:48\"";
 
       renderer.render(input, function (error, results) {
         if (error) {
           throw error;
         }
+        //console.log(JSON.stringify(results));
 
         assert.that(results).is.equalTo(output);
 
@@ -337,6 +339,7 @@ describe('Units', function () {
     it('should render sql', function (done) {
       var options = {
         tablename: 'fancy_table_123',
+        dates: ['data.created_utc'],
         mapping: {
           'data.id': 'id',
           'data.score': 'score',
@@ -379,18 +382,18 @@ describe('Units', function () {
 
       var output =
         "INSERT INTO fancy_table_123 (id, score, title, created_utc) " +
-        "VALUES ('afe3ll', 5, 'Title for 5', 1423023706);\n" +
+        "VALUES ('afe3ll', 5, 'Title for 5', '04.02.2015 07:21:46');\n" +
         "INSERT INTO fancy_table_123 (id, score, title, created_utc) " +
-        "VALUES ('afe3ad', 4, 'Title for 4', 1423023707);\n" +
+        "VALUES ('afe3ad', 4, 'Title for 4', '04.02.2015 07:21:47');\n" +
         "INSERT INTO fancy_table_123 (id, score, title, created_utc) " +
-        "VALUES ('afe3et', 6, 'Title for 6', 1423023708);";
+        "VALUES ('afe3et', 6, 'Title for 6', '04.02.2015 07:21:48');";
 
       renderer.render(input, function (error, results) {
         if (error) {
           throw error;
         }
 
-        //console.log(results);
+        //console.log(JSON.stringify(results));
 
         assert.that(results).is.equalTo(output);
 
